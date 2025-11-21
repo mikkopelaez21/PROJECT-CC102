@@ -1,0 +1,68 @@
+#include <iostream>
+#include <string>
+#include <limits> // Required for numeric_limits
+
+// Function to handle the 'add' command
+void handle_add_command() {
+    double num1, num2;
+    std::cout << "Enter first number: ";
+
+    // Check if the input is a valid number
+    if (!(std::cin >> num1)) {
+        std::cout << "Error: Invalid number input.\n";
+        std::cin.clear(); // Clear the error flags
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard bad input
+        return;
+    }
+
+    std::cout << "Enter second number: ";
+    if (!(std::cin >> num2)) {
+        std::cout << "Error: Invalid number input.\n";
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        return;
+    }
+
+    std::cout << "Result: " << num1 + num2 << "\n";
+}
+
+int main() {
+    std::string command;
+
+    std::cout << "--- Simple C++ Console ---\n";
+    std::cout << "Available commands: help, add, exit\n";
+
+    // Main command loop
+    while (true) {
+        std::cout << "\n> "; // Command prompt symbol
+
+        // Use std::getline to read the entire line, including spaces
+        // However, for single-word commands, std::cin >> command is simpler.
+        // Let's stick with std::cin >> command for this simple example.
+        if (!(std::cin >> command)) {
+            // Handle EOF or fatal error
+            break;
+        }
+
+        // --- Command Processing ---
+
+        if (command == "exit") {
+            std::cout << "Exiting console. Goodbye!\n";
+            break; // Break the while loop to end the program
+        }
+        else if (command == "help") {
+            std::cout << "--- HELP MENU ---\n";
+            std::cout << "add  : Prompts for two numbers and displays their sum.\n";
+            std::cout << "help : Displays this help menu.\n";
+            std::cout << "exit : Quits the application.\n";
+        }
+        else if (command == "add") {
+            handle_add_command();
+        }
+        else {
+            std::cout << "Unknown command: '" << command << "'. Type 'help' for a list of commands.\n";
+        }
+    }
+
+    return 0;
+}
